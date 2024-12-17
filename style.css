@@ -44,8 +44,6 @@ body {
   @media (max-width: 680px) {
     .logo {
       width: 100px;
-      align-items: left;
-      justify-content: right;
     }
   
     h1 {

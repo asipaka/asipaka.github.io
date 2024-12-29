@@ -1,68 +1,94 @@
+/* General Body Styling */
 body {
-    font-family: "Poppins", sans-serif;
-    margin: 50px 50px 0 50px;
-    background-color: #fcfcfc;
-    display: flex;
-    flex-direction: column;
-    min-height: 95vh;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  background-color: #fcfcfc;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Main Content Styling */
+.main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Logo Container with Styling */
+.logo-container {
+  display: inline-block;
+  padding: 10px;
+  border: 4px solid #070707; /* Unique border */
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  margin-bottom: 20px;
+}
+
+.logo {
+  max-width: 200px;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* Bio Section */
+.about {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+/* Social Links Styling */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #d8790d;
+  transition: background-color 0.3s ease;
+}
+
+.social-links a:hover {
+  background-color: #030303;
+}
+
+.social-links img {
+  width: 20px;
+  height: 20px;
+  filter: invert(1); /* Ensures SVG icons contrast against dark background */
+}
+
+/* Footer Styling */
+footer {
+  text-align: center;
+  color: rgb(3, 3, 3);
+  padding: 10px 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 680px) {
+  .logo {
+    max-width: 120px;
   }
-  .main {
-    flex: 1;
+
+  .about {
+    font-size: 1rem;
   }
-  
-  h1 {
-    font-size: 5rem;
+
+  .social-links img {
+    width: 16px;
+    height: 16px;
   }
-  
-  footer {
-    text-align: right;
-    color: midnightblue;
-  }
-  
-  .tile-image {
-    height: 200px;
-    float: left;
-    margin-right: 50px;
-  }
-  
-  .card {
-    width: 45%;
-  }
-  
-  .left {
-    float: left;
-  }
-  
-  .right {
-    float: right;
-  }
-  
-  .creative {
-    color: rgba(248, 149, 0, 0.979);
-  }
-  
-  @media (max-width: 680px) {
-    .logo {
-      width: 100px;
-    }
-  
-    h1 {
-      font-size: 3.5rem;
-      text-align: center;
-    }
-  
-    .card {
-      width: 100%;
-      display: block;
-      margin-bottom: 30px;
-      text-align: justify;
-    }
-  
-    .card img {
-      margin-bottom: 10px;
-      width: 100%;
-      display: inline;
-      object-fit: cover;
-    }
-  }
-  
+}

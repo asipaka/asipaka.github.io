@@ -199,6 +199,72 @@ section {
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
 
+/* Blog Section Container */
+.blog-section {
+  padding: 2rem;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+/* Section Heading */
+.blog-section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #00ff87;  /* Neon accent for tech vibe */
+  font-weight: bold;
+}
+
+/* Responsive Blog Grid */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 0 1rem;
+}
+
+/* Individual Blog Post Card */
+.blog-post {
+  background-color: #2a2a2a;
+  border: 1px solid #00ff87;
+  padding: 1.5rem;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-post:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 10px #00ff87;
+}
+
+/* Blog Post Header */
+.blog-post h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #00ff87;
+  font-weight: bold;
+}
+
+/* Blog Post Description */
+.blog-post p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #cfcfcf;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+  .blog-section h2 {
+    font-size: 1.75rem;
+  }
+  .blog-post h3 {
+    font-size: 1.25rem;
+  }
+  .blog-post p {
+    font-size: 0.9rem;
+  }
+}
+
 /* Experience Section */
 .experience-section ul {
   list-style: none;
@@ -219,6 +285,7 @@ section {
   background-color: #2a2a2a;
   transform: translateX(5px);
 }
+
 
 /* Contact Section */
 .contact-section .social-links {

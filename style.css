@@ -68,13 +68,15 @@ h1, h2, h3, .logo {
   text-decoration: none;
   color: #e0e0e0;
   font-weight: 500;
-  transition: color 0.3s ease;
+  padding: 0.5rem 1rem;
+  border: 2px dashed transparent; /* Hidden border initially */
+  transition: border-color 0.3s ease, color 0.3s ease;
 }
 
 .nav-links li a:hover {
-  color: #08fa75;
+  border-color: #00ff87;
+  color: #00ff87;
 }
-
 /* Hero Section */
 .hero {
   display: flex;

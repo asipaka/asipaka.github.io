@@ -10,12 +10,15 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Share Tech Mono', serif;
   background-color: #121212;
   color: #e0e0e0;
   line-height: 1.6;
 }
 
+h1, h2, h3, .logo {
+  font-family: 'Montserrat', sans-serif;
+}
 /* Navbar */
 .navbar {
   display: flex;
@@ -46,7 +49,7 @@ body {
 .menu-toggle span {
   height: 3px;
   width: 25px;
-  background: #00ff87;
+  background: #f8faf9;
   margin: 4px 0;
   transition: 0.4s;
 }
@@ -69,7 +72,7 @@ body {
 }
 
 .nav-links li a:hover {
-  color: #00ff87;
+  color: #08fa75;
 }
 
 /* Hero Section */
@@ -78,7 +81,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
   padding-top: 80px; /* offset for fixed navbar */
   text-align: center;
   background: radial-gradient(circle at center, #1e1e1e, #121212);
@@ -172,6 +175,10 @@ section {
   transform: translateY(-5px);
   box-shadow: 0 0 10px #00ff87;
 }
+.projects-section a {
+  color: inherit;
+  text-decoration: none;
+}
 
 /* Preview Container for Projects */
 .preview-container {
@@ -184,7 +191,7 @@ section {
 }
 
 .preview-container .preview-image {
-  width: 300px;
+  width: 200px;
   max-width: 90vw;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);

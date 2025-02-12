@@ -1,94 +1,298 @@
-/* General Body Styling */
-body {
-  font-family: "Poppins", sans-serif;
+/* Reset & Base Styles */
+* {
   margin: 0;
-  background-color: #fcfcfc;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #1e1e1e;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.navbar .logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #00ff87; /* Neon accent */
+}
+
+/* Hamburger Menu Toggle */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  height: 3px;
+  width: 25px;
+  background: #00ff87;
+  margin: 4px 0;
+  transition: 0.4s;
+}
+
+/* Navbar Links */
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.nav-links li {
+  margin-left: 2rem;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #e0e0e0;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #00ff87;
+}
+
+/* Hero Section */
+.hero {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-}
-
-/* Main Content Styling */
-.main {
-  flex: 1;
-  display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  padding-top: 80px; /* offset for fixed navbar */
   text-align: center;
-  padding: 20px;
+  background: radial-gradient(circle at center, #1e1e1e, #121212);
 }
 
-/* Logo Container with Styling */
-.logo-container {
-  display: inline-block;
-  padding: 10px;
-  border: 4px solid #070707; /* Unique border */
-  border-radius: 50%;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  margin-bottom: 20px;
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #00ff87;
+  font-weight: bold;
 }
 
-.logo {
-  max-width: 200px;
-  height: auto;
-  border-radius: 50%;
-}
-
-/* Bio Section */
-.about {
+.hero p {
   font-size: 1.2rem;
-  color: #333;
-  margin-bottom: 30px;
+  max-width: 600px;
+  color: #cfcfcf;
 }
 
-/* Social Links Styling */
-.social-links {
+/* Section Headings */
+section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #00ff87;
+  border-bottom: 2px solid #00ff87;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+/* Section Container */
+section {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* About Section */
+.about-section p {
+  text-align: center;
+  max-width: 800px;
+  margin: 1rem auto;
+  font-size: 1.1rem;
+  color: #cfcfcf;
+}
+
+/* Skills Section */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.skill {
+  background-color: #1e1e1e;
+  border: 1px solid #00ff87;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #00ff87;
+}
+
+/* Projects Section */
+.projects-section .project {
+  background-color: #1e1e1e;
+  border: 1px solid #00ff87;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative; /* For positioning preview */
+  cursor: pointer;
+}
+
+.projects-section .project h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #00ff87;
+}
+
+.projects-section .project p {
+  color: #cfcfcf;
+}
+
+.projects-section .project:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 10px #00ff87;
+}
+
+/* Preview Container for Projects */
+.preview-container {
+  position: absolute;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.preview-container .preview-image {
+  width: 300px;
+  max-width: 90vw;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+/* Experience Section */
+.experience-section ul {
+  list-style: none;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.experience-section li {
+  background-color: #1e1e1e;
+  border: 1px solid #00ff87;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.experience-section li:hover {
+  background-color: #2a2a2a;
+  transform: translateX(5px);
+}
+
+/* Contact Section */
+.contact-section .social-links {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-top: 10px;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
-.social-links a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #d8790d;
-  transition: background-color 0.3s ease;
+.contact-section .social-links a {
+  text-decoration: none;
+  color: #00ff87;
+  border: 1px solid #00ff87;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.social-links a:hover {
-  background-color: #030303;
+.contact-section .social-links a:hover {
+  background-color: #00ff87;
+  color: #121212;
+  transform: scale(1.05);
 }
 
-.social-links img {
-  width: 20px;
-  height: 20px;
-  filter: invert(1); /* Ensures SVG icons contrast against dark background */
-}
-
-/* Footer Styling */
+/* Footer */
 footer {
+  background-color: #1e1e1e;
   text-align: center;
-  color: rgb(3, 3, 3);
-  padding: 10px 20px;
+  padding: 1rem 2rem;
+  width: 100%;
+  color: #cfcfcf;
+  font-size: 0.9rem;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 680px) {
-  .logo {
-    max-width: 120px;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 1rem;
   }
-
-  .about {
+  
+  /* Show hamburger menu */
+  .menu-toggle {
+    display: flex;
+  }
+  
+  /* Hide nav links initially */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .nav-links.active {
+    display: flex;
+  }
+  
+  .nav-links li {
+    margin: 1rem 0;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero p {
     font-size: 1rem;
+    padding: 0 1rem;
   }
+  
+  section {
+    padding: 3rem 1rem;
+  }
+}
 
-  .social-links img {
-    width: 16px;
-    height: 16px;
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .skills-grid {
+    grid-template-columns: 1fr;
   }
 }

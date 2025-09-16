@@ -1,127 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clinton Enanin | Cybersecurity & Web Development</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asipaka | Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo">Clinton Enanin</div>
-    <div class="menu-toggle">
-      <span></span>
-      <span></span>
-    </div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#blog">Blog</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </header>
-  
-  <section class="hero">
-    <h1>Cybersecurity Enthusiast, Analyst & Developer</h1>
-    <p>Empowering technology through secure and innovative solutions.</p>
-  </section>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">asipaka</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                <li class="nav-item">
+                    <button id="theme-toggle" class="theme-btn">🌙</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-  <section id="about" class="about-section">
-    <h2>About Me</h2>
-    <p>Hi, I'm Clinton, a passionate tech enthusiast specializing in cybersecurity, web development, and programming. My journey is defined by continuous learning, problem-solving, and contributing to impactful projects in the tech ecosystem.</p>
-  </section>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1>Hi, I'm <span class="highlight">Asipaka</span></h1>
+            <p>A <span id="typing-text"></span></p>
+            <a href="#projects" class="btn">View My Work</a>
+        </div>
+    </section>
 
-  <section id="skills" class="skills-section">
-    <h2>Tech Stack & Skills</h2>
-    <div class="skills-grid">
-      <div class="skill">HTML5 & CSS3</div>
-      <div class="skill">AI/ML/LLMs</div>
-      <div class="skill">Python for Automation</div>
-      <div class="skill">Penetration Testing</div>
-      <div class="skill">OSINT & VulnAssessment</div>
-      <div class="skill">C/C++</div>
-      <div class="skill">Javascript</div>
-    </div>
-  </section>
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <p>This is where your bio will go. Talk about your skills, passion for technology, and what you do. Keep it concise and engaging. Mention your interest in areas like OSINT to tie into your blog.</p>
+            <!-- You can add skills bars or a list of technologies here later -->
+        </div>
+    </section>
 
-  <section id="projects" class="projects-section">
-    <h2>Projects</h2>
-    <div class="project" data-image="assets/images/cybersecurity-preview.jpeg">
-      <h3>EvulvTec Portfolio</h3>
-      <p>Showcasing my journey in full-stack development and ethical hacking.</p>
-    </div>
-    <div class="project" data-image="assets/images/bims.jpeg">
-      <h3><a href="https://hairbybims.net">HairByBims</a></h3>
-      <p>Developed an e-commerce website for a premium hair brand.</p>
-    </div>
-    <div class="project" data-image="assets/images/cblue.png">
-      <h3><a href="https://coralbluelimited.net">CoralBlue Limited</a></h3>
-      <p>Created a sleek landing page enhancing brand visibility.</p>
-    </div>
-  </section>
-  <section id="blog" class="blog-section">
-    <h2>Personal Thoughts / Insights</h2>
-    <div class="blog-grid">
-      <article class="blog-post">
-        <h3>Cybersecurity in the Age of AI</h3>
-        <p>Explore how artificial intelligence is revolutionizing threat detection, risk assessment, and cybersecurity strategies in our increasingly digital world.</p>
-      </article>
-      
-      <article class="blog-post">
-        <h3>Understanding Large Language Models (LLMs) and Their Security Implications</h3>
-        <p>Dive into the mechanics of LLMs, evaluate their vulnerabilities, and discover how they can both bolster and challenge our security frameworks.</p>
-      </article>
-      
-      <article class="blog-post">
-        <h3>Programming Languages for Cybersecurity</h3>
-        <p>Compare popular programming languages and examine why tools built with Python, C/C++, and JavaScript play a critical role in modern cybersecurity.</p>
-      </article>
-      
-      <article class="blog-post">
-        <h3>Getting Started with Ethical Hacking</h3>
-        <p>A beginner-friendly guide that covers essential techniques, tools, and lab setups needed to explore the world of ethical hacking safely.</p>
-      </article>
-      
-      <article class="blog-post">
-        <h3>The Role of Automation in Cyber Defense</h3>
-        <p>Learn how automation and scripting streamline threat detection, incident response, and overall cyber defense strategies.</p>
-      </article>
-      
-      <article class="blog-post">
-        <h3>Building a Cybersecurity Lab at Home</h3>
-        <p>Step-by-step insights on setting up a personal lab environment to practice penetration testing, vulnerability assessments, and digital forensics.</p>
-      </article>
-    </div>
-  </section>  
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2>Projects</h2>
+            <div class="project-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <h3>Project Name One</h3>
+                    <p>A brief description of your project. What it does, what technologies you used.</p>
+                    <div class="project-tech">Python, Django, SQL</div>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <h3>Project Name Two</h3>
+                    <p>A brief description of your project. What it does, what technologies you used.</p>
+                    <div class="project-tech">React, Node.js, CSS</div>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+                <!-- Add more project cards as needed -->
+            </div>
+        </div>
+    </section>
 
-  <section id="experience" class="experience-section">
-    <h2>Professional Experience</h2>
-    <ul>
-      <li><strong>EvulvTec Founder</strong> (2024 - Present): Leading tech projects with a focus on cybersecurity.</li>
-      <li><strong>Freelance Web Developer</strong> (2021 - Present): Building responsive websites and Applications.</li>
-      <li><strong>Cybersecurity Analyst</strong> (2021 - Present): Conducting penetration tests and risk assessments / Setting Up Labs for Learning</li>
-    </ul>
-  </section>
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <p>I'm always open to discussing new projects and opportunities.</p>
+            <a href="mailto:your-email@example.com" class="btn">Send an Email</a>
+        </div>
+    </section>
 
-  <section id="contact" class="contact-section">
-    <h2>Contact</h2>
-    <div class="social-links">
-      <a href="https://x.com/kn0treel">Twitter</a>
-      <a href="https://t.me/Ev0lv">Telegram</a>
-      <a href="https://github.com/asipaka">GitHub</a>
-      <a href="https://www.linkedin.com/in/clinton-enanin/">LinkedIn</a>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Clinton Enanin. All rights reserved.</p>
-  </footer>
+    <script src="script.js"></script>
 </body>
 </html>

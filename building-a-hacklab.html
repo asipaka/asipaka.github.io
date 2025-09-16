@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Your Own Offensive Security Home Lab for Free | Asipaka's Blog</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">asipaka</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="../index.html#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="../index.html#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="../index.html#contact" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                <li class="nav-item">
+                    <button id="theme-toggle" class="theme-btn">🌙</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="blog-container">
+        <article class="blog-post">
+            <header>
+                <h1>Building Your Own Offensive Security Home Lab for Free</h1>
+                <p class="blog-meta"><strong>Published:</strong> <time datetime="2022-10-27">October 27, 2022</time> | <strong>Author:</strong> Asipaka</p>
+            </header>
+
+            <section>
+                <h2>Why You Need a Home Lab</h2>
+                <p>Want to learn how to use tools like Nmap, Metasploit, or Burp Suite? The biggest mistake a beginner can make is firing up Kali Linux and scanning a website they don't own. Not only is it illegal, but it's also incredibly irresponsible.</p>
+                <p>A home lab solves this. It's a self-contained, isolated network where you can practice offensive security techniques legally and safely. It's your personal playground to:</p>
+                <ul>
+                    <li>Test and break tools without consequences.</li>
+                    <li>Understand how vulnerabilities work in a real(ish) environment.</li>
+                    <li>Develop your methodology and problem-solving skills.</li>
+                    <li>Build a hands-on portfolio for certifications like OSCP or career advancement.</li>
+                </ul>
+                <p>The best part? You can build a powerful lab entirely with <strong>free</strong> software. Here’s how.</p>
+            </section>
+
+            <section>
+                <h2>Lab Architecture Overview</h2>
+                <p>Before we download anything, let's plan our network. We want to isolate our lab from our home network for safety. We'll use a virtual "internal network" provided by VirtualBox.</p>
+                <p>Our lab will have three key components:</p>
+                <ol>
+                    <li><strong>The Attack Machine:</strong> Your Kali Linux system. This is your command center.</li>
+                    <li><strong>The Target Machine(s):</strong> Intentionally vulnerable machines like Metasploitable. These are your practice dummies.</li>
+                    <li><strong>The Network:</strong> A private virtual network that connects them, walled off from your main internet connection.</li>
+                </ol>
+                <p>This setup ensures that all your hacking practice stays within the virtual environment.</p>
+            </section>
+
+            <section>
+                <h2>Step 1: Downloading the Necessary Software</h2>
+                <h3>1. Virtualization Software: VirtualBox</h3>
+                <p>VirtualBox is a free and powerful virtualization tool from Oracle. It lets you run multiple operating systems (guests) on your main machine (host).</p>
+                <p><strong>Download Link:</strong> <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">VirtualBox Downloads Page</a>. Download the version for your host OS (Windows, macOS, Linux).</p>
+
+                <h3>2. Your Attack Platform: Kali Linux</h3>
+                <p>Kali is the premier penetration testing distribution, pre-loaded with hundreds of tools like the ones you use (Nmap, Wifite, Empire).</p>
+                <p><strong>Download Link:</strong> <a href="https://www.kali.org/get-kali/#kali-virtual-machines" target="_blank" rel="noopener">Kali Linux VirtualBox Image</a>. Get the "VirtualBox" version (`.ova` file). This is the easiest way to get started as it's pre-configured.</p>
+
+                <h3>3. Your Practice Targets: Vulnerable VMs</h3>
+                <p>You need something to hack! These are intentionally built with vulnerabilities for you to find and exploit.</p>
+                <ul>
+                    <li><strong>Metasploitable 2/3:</strong> The classic beginner target. A Linux machine packed with vulnerabilities.
+                        <br><strong>Download Link:</strong> <a href="https://sourceforge.net/projects/metasploitable/files/" target="_blank" rel="noopener">Metasploitable 2 on SourceForge</a>.
+                        <br><em>Warning: Metasploitable is incredibly vulnerable. Never expose it to any network except your isolated lab.</em>
+                    </li>
+                    <li><strong>VulnHub:</strong> A massive repository of vulnerable VMs of all difficulty levels. It's like HackTheBox but offline.
+                        <br><strong>Website:</strong> <a href="https://www.vulnhub.com/" target="_blank" rel="noopener">VulnHub.com</a>. I recommend starting with "Beginner: Series" VMs.
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Step 2: Setting Up the Virtual Environment</h2>
+                <h3>Importing Your Kali Linux VM</h3>
+                <ol>
+                    <li>Open VirtualBox.</li>
+                    <li>Go to <code>File -> Import Appliance</code>.</li>
+                    <li>Click the folder icon and select the Kali Linux <code>.ova</code> file you downloaded.</li>
+                    <li>Click "Next." You'll see the appliance settings. You can usually leave these as default. Click "Import."</li>
+                    <li>Wait for the import to complete. You now have a ready-to-use Kali machine!</li>
+                </ol>
+
+                <h3>Creating the Isolated Network</h3>
+                <p>We need to create a virtual network that Kali and our targets can use, without touching our home network.</p>
+                <ol>
+                    <li>In VirtualBox, go to <code>File -> Host Network Manager</code>.</li>
+                    <li>Click the "Create" button. A new network (e.g., vboxnet0) will appear.</li>
+                    <li>Select it and check the "Enable" box.</li>
+                    <li>Configure the IPv4 address to <code>192.168.56.1</code> and the subnet mask to <code>255.255.255.0</code>. This makes your host machine the gateway at .1.</li>
+                    <li>Click "Apply" and then "Close."</li>
+                </ol>
+                <p>Your host machine now has a virtual network adapter for this lab network.</p>
+            </section>
+
+            <section>
+                <h2>Step 3: Configuring Your Machines</h2>
+                <h3>Configuring Kali Linux</h3>
+                <ol>
+                    <li>In VirtualBox, right-click your Kali VM and select "Settings."</li>
+                    <li>Go to the "Network" tab.</li>
+                    <li>For "Adapter 1," ensure it's "NAT." This gives Kali internet access to download tools.</li>
+                    <li>Click on "Adapter 2," enable it, and set "Attached to" to <strong>"Host-only Adapter."</strong> From the dropdown, select the network you just created (e.g., vboxnet0).</li>
+                    <li>Click "OK." Kali now has two network interfaces: one for the internet and one for the lab.</li>
+                </ol>
+
+                <h3>Configuring Your Target VM (Metasploitable)</h3>
+                <ol>
+                    <li>Import or set up your target VM (e.g., Metasploitable) in VirtualBox.</li>
+                    <li>Go to its "Settings -> Network" tab.</li>
+                    <li>For "Adapter 1," set "Attached to" to <strong>"Host-only Adapter"</strong> and select the same network (vboxnet0).</li>
+                    <li><strong>CRUCIAL:</strong> Disable any other adapters. This target should <em>only</em> be on the lab network. It should have no internet access.</li>
+                    <li>Click "OK."</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>Step 4: Powering On and Testing</h2>
+                <ol>
+                    <li>Start your Kali Linux VM. Log in (default credentials are usually <code>kali:kali</code>).</li>
+                    <li>Open a terminal and check your IP addresses with <code>ip a</code> or <code>ifconfig</code>. You should see two IPs. One will be on the <code>192.168.56.0/24</code> network (e.g., <code>192.168.56.101</code>). This is your lab IP.</li>
+                    <li>Start your Metasploitable VM.</li>
+                    <li>Back in the Kali terminal, ping your target to confirm connectivity:
+                        <pre><code>ping -c 4 192.168.56.102</code></pre>
+                        (Replace <code>102</code> with the actual IP of your Metasploitable machine. Find it by logging into Metasploitable and running <code>ifconfig</code>, or by scanning the network from Kali with <code>nmap -sn 192.168.56.0/24</code>).
+                    </li>
+                    <li>If you get replies, congratulations! Your lab is built and working.</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>What To Do Next: Your First Lab Exercises</h2>
+                <p>Your lab is ready. Now what? Here are a few ideas to get you started:</p>
+                <ul>
+                    <li><strong>Discover:</strong> Use <code>nmap -sV -sC 192.168.56.102</code> to scan your target and discover all open ports and services.</li>
+                    <li><strong>Exploit:</strong> Research the services you found. Metasploitable's vsFTPd version 2.3.4 is famously vulnerable. Find an exploit for it on Exploit-DB and try to get a shell.</li>
+                    <li><strong>Explore:</strong> Download a beginner VM from <a href="https://www.vulnhub.com/" target="_blank" rel="noopener">VulnHub</a> and try to get root. Document your process.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Final Words of Caution</h2>
+                <p>With great power comes great responsibility.</p>
+                <ul>
+                    <li><strong>Isolation is Key:</strong> Double-check that your target VMs are only on the Host-Only network. A mistake here could have real-world consequences.</li>
+                    <li><strong>Legal & Ethical:</strong> Everything you do in this lab is legal because you own all the assets. This permission is what separates ethical hacking from criminal activity. Keep it that way.</li>
+                    <li><strong>Have Fun:</strong> Break things, fix them, break them again. This is a sandbox for learning. Embrace the frustration of failed exploits—it's where the real learning happens.</li>
+                </ul>
+                <p>Now go forth and hack... responsibly!</p>
+            </section>
+
+            <footer>
+                <p>Tags: <a href="#">Home Lab</a>, <a href="#">Kali Linux</a>, <a href="#">VirtualBox</a>, <a href="#">Ethical Hacking</a>, <a href="#">Metasploitable</a></p>
+            </footer>
+        </article>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>

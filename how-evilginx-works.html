@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demystifying Phishing Tools: How Evilginx Really Works | Asipaka's Blog</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">asipaka</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="../index.html#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="../index.html#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="../index.html#contact" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                <li class="nav-item">
+                    <button id="theme-toggle" class="theme-btn">🌙</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="blog-container">
+        <article class="blog-post">
+            <header>
+                <h1>Demystifying Phishing Tools: How Evilginx Really Works</h1>
+                <p class="blog-meta"><strong>Published:</strong> <time datetime="2023-11-05">November 5, 2023</time> | <strong>Author:</strong> Asipaka</p>
+            </header>
+
+            <section>
+                <p>Tools like <strong>Evilginx</strong> have revolutionized phishing by making it terrifyingly easy to bypass two-factor authentication (2FA). Most tutorials teach you how to run it: <code>git clone</code>, change the config, and go. But if you don't understand <em>how</em> it works, you're just a script kiddie with a powerful weapon.</p>
+                <p>This post strips away the magic. We'll explore the core technology behind Evilginx, discuss why the default setup is a death sentence, and touch on the tell-tale signs (IOCs) that give it away. This foundational knowledge is essential for both red teamers building resilient campaigns and blue teamers defending against them.</p>
+            </section>
+
+            <section>
+                <h2>It's Not a PhishKit, It's a Reverse Proxy</h2>
+                <p>The key mistake is categorizing Evilginx with simple phishing frameworks that host static pages. Tools like <a href="https://getgophish.com/" target="_blank" rel="noopener">GoPhish</a> are great for credential harvesting, but they fail the moment a victim enters a 2FA code. The code is useless to the attacker because it's time-based and tied to that specific session.</p>
+                <p>Evilginx is different. It's a <strong>man-in-the-middle (MITM) framework</strong> built on a reverse proxy. Let's break down what that means:</p>
+                <ul>
+                    <li><strong>Reverse Proxy:</strong> Imagine a proxy server that sits in front of a legitimate website (e.g., login.microsoft.com). All traffic from the client (the victim) goes to the proxy first. The proxy then forwards that traffic to the real website and sends the real website's responses back to the victim.</li>
+                    <li><strong>Man-in-the-Middle:</strong> Because all traffic flows through it, Evilginx can see, log, and modify everything in both directions. It's perfectly positioned to intercept the most sensitive data.</li>
+                </ul>
+                <p>This architecture is the reason it can bypass 2FA. It doesn't just steal a password; it <strong>steals the entire authenticated session</strong>.</p>
+            </section>
+
+            <section>
+                <h2>The Step-by-Step Magic Trick</h2>
+                <p>Here’s what happens during a successful Evilginx attack:</p>
+                <ol>
+                    <li><strong>The Bait:</strong> You send a victim a link to your Evilginx server, e.g., <code>https://login.microsoft.com.service.yourapp.com</code>.</li>
+                    <li><strong>The Connection:</strong> The victim's browser connects to your server, thinking it's talking to Microsoft.</li>
+                    <li><strong>The Request Forward:</strong> Evilginx forwards the victim's HTTP request to the real Microsoft login page.</li>
+                    <li><strong>The Response Hijacking:</strong> Microsoft sends back the legitimate login page. Evilginx intercepts it and rewrites all the links and form actions to point back to <em>itself</em> instead of Microsoft. It then serves this modified page to the victim.</li>
+                    <li><strong>The Credential Harvest:</strong> The victim enters their username and password into the fake-but-real-looking page and hits submit. The credentials are sent to Evilginx, which logs them and immediately forwards them to Microsoft. The victim is none the wiser.</li>
+                    <li><strong>The 2FA Bypass:</strong> Microsoft prompts for a 2FA code. The victim enters it. Evilginx intercepts this code too, logs it, and forwards it. The victim successfully logs in to the real service.</li>
+                    <li><strong>The Session Steal:</strong> Microsoft sends back session cookies (the keys to the kingdom). Evilginx steals a copy of these cookies and then allows them to pass to the victim's browser.</li>
+                    <li><strong>The Redirection:</strong> The victim is now authentically logged into Microsoft.com. Meanwhile, you, the attacker, can inject those stolen session cookies into your own browser and gain full access to the victim's account <em>without needing their password or 2FA code</em>.</li>
+                </ol>
+                <p>The brilliance is that the victim interacts with the <em>real website</em> the entire time. This makes the phishing page nearly impossible for a user to distinguish from the real thing.</p>
+            </section>
+
+            <section>
+                <h2>The Achilles' Heel: Default Indicators of Compromise (IOCs)</h2>
+                <p>While powerful, a default Evilginx setup is notoriously "noisy." Defenders and automated systems can spot it. Here’s what gives it away:</p>
+                <ul>
+                    <li><strong>The Domain Name:</strong> A domain like <code>microsoft-com.login.attacker[.]com</code> is a massive red flag. Domain fronting or using a compromised, reputable domain is needed for stealth.</li>
+                    <li><strong>SSL/TLS Certificate Inconsistencies:</strong> The SSL certificate for your phishing domain won't be issued by a trusted authority for the spoofed service (e.g., Microsoft). While it will be technically valid for <code>*.attacker[.]com</code>, its issuance details and lack of extended validation are clues.</li>
+                    <li><strong>HTML Source Code Anomalies:</strong> Evilginx must rewrite URLs. A defender who looks at the page source might find links that point to your phishing domain instead of the legitimate CDN domains (e.g., <code>https://attacker[.]com/static.microsoft.com/script.js</code>).</li>
+                    <li><strong>Server Fingerprinting:</strong> The default server headers, response times, and IP reputation of your VPS can be flagged by security services like Google's Safe Browsing, Cisco Talos, or Microsoft Defender SmartScreen.</li>
+                    <li><strong>The "Easter Egg":</strong> Perhaps the most famous giveaway is a hidden feature. In some versions, appending <code>?bypass=</code> to the URL would show a debug page, instantly revealing the phishing attempt. This highlights the danger of using tools straight out of the box without understanding their configuration.</li>
+                </ul>
+                <p>Using Evilginx with its default settings is a quick way to get your phishing domain blacklisted and your campaign killed within hours.</p>
+            </section>
+
+            <section>
+                <h2>Beyond the Basics: The Path to Stealth</h2>
+                <p>So, how do you make an Evilginx campaign last longer than a few hours? The answer lies in advanced configuration and infrastructure design. This moves from simply running a tool to practicing true offensive tradecraft.</p>
+                <p>Techniques include:</p>
+                <ul>
+                    <li>Using <strong>legitimate-but-compromised cloud infrastructure</strong> (e.g., Azure/AWS instances) instead of cheap VPS providers with poor reputations.</li>
+                    <li>Implementing <strong>domain and subdomain fronting</strong> to mask the true destination of the traffic.</li>
+                    <li>Customizing Evilginx's <strong>Lua scripts</strong> to better mimic the target site and avoid source code anomalies.</li>
+                    <li>Obtaining <strong>trusted SSL certificates</strong> through creative means to avoid certificate warnings.</li>
+                    <li>Setting up <strong>robust redirectors</strong> to separate the phishing infrastructure from the core Evilginx server.</li>
+                </ul>
+                <p>These advanced topics deserve their own deep dive. In a future post, <strong><a href="#">Evilginx Advanced: Configurations for Long-Lasting Campaigns</a></strong>, we will explore these techniques in detail, with practical examples and links to essential resources from leading security researchers.</p>
+            </section>
+
+            <section>
+                <h2>Conclusion: Knowledge is Power</h2>
+                <p>Understanding that Evilginx is a reverse proxy fundamentally changes how you use it. It's not a fire-and-forget weapon; it's a sophisticated tool that requires careful configuration and a deep understanding of web protocols to be used effectively.</p>
+                <p>For defenders, this knowledge is equally critical. Knowing the IOCs—the strange domains, the certificate quirks, the rewritten URLs—allows you to build better detections and protect your users against these advanced attacks.</p>
+                <p>The cat-and-mouse game continues. As tools evolve, so must our understanding of them.</p>
+            </section>
+
+            <footer>
+                <p>Tags: <a href="#">Evilginx</a>, <a href="#">Phishing</a>, <a href="#">Red Team</a>, <a href="#">2FA Bypass</a>, <a href="#">Reverse Proxy</a>, <a href="#">IOC</a></p>
+                <p><strong>Further Reading:</strong> The original creator, <a href="https://breakdev.org/evilginx-2-next-generation-of-phishing-2fa-tokens/" target="_blank" rel="noopener">Kuba Gretzky (BreakDev)</a>, provides an excellent technical deep dive into Evilginx's architecture.</p>
+            </footer>
+        </article>
+    </main>
+
+    <script src="../script.js"></script>
+</body>
+</html>

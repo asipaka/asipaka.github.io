@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Security, OSINT & Ethical Hacking | Asipaka</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">asipaka</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="index.html#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                <li class="nav-item">
+                    <button id="theme-toggle" class="theme-btn">🌙</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="blog-hub-container">
+        <header class="blog-header">
+            <h1>Security Blog</h1>
+            <p>Deep dives into OSINT, penetration testing, red teaming, and the tools of the trade. Practical guides for building labs and understanding advanced attack frameworks.</p>
+        </header>
+
+        <section class="blog-filters">
+            <button class="filter-btn active" data-filter="all">All Topics</button>
+            <button class="filter-btn" data-filter="red-teaming">Red Teaming</button>
+            <button class="filter-btn" data-filter="osint">OSINT</button>
+            <button class="filter-btn" data-filter="tutorial">Tutorials</button>
+            <button class="filter-btn" data-filter="concepts">Core Concepts</button>
+        </section>
+
+        <div class="blog-grid">
+
+            <!-- Blog Post 1: The Home Lab Article -->
+            <article class="blog-preview-card" data-category="tutorial">
+                <div class="card-content">
+                    <h2><a href="blog-building-a-hacklab.html">Building Your Own Offensive Security Home Lab for Free</a></h2>
+                    <p class="preview-meta"><time datetime="2023-10-27">October 27, 2023</time> | <span class="read-time">10 min read</span></p>
+                    <p class="preview-excerpt">A step-by-step guide to creating a professional, isolated penetration testing lab using VirtualBox, Kali Linux, and Metasploitable. Practice ethical hacking safely and legally.</p>
+                    <div class="preview-tags">
+                        <span class="tag">Kali Linux</span>
+                        <span class="tag">VirtualBox</span>
+                        <span class="tag">Metasploitable</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Blog Post 2: The Evilginx Deep Dive -->
+            <article class="blog-preview-card" data-category="red-teaming concepts">
+                <div class="card-content">
+                    <h2><a href="blog-how-evilginx-works.html">Demystifying Phishing Tools: How Evilginx Really Works</a></h2>
+                    <p class="preview-meta"><time datetime="2023-11-05">November 5, 2023</time> | <span class="read-time">12 min read</span></p>
+                    <p class="preview-excerpt">Go beyond the commands. We break down the magic of advanced phishing tools, explaining reverse proxies, session stealing, and why the default setup is easy for defenders to spot.</p>
+                    <div class="preview-tags">
+                        <span class="tag">Evilginx</span>
+                        <span class="tag">Phishing</span>
+                        <span class="tag">2FA Bypass</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Blog Post 3: The Upcoming OSINT Post (Placeholder) -->
+            <article class="blog-preview-card" data-category="osint concepts">
+                <div class="card-content">
+                    <h2><a href="#">Open-Source Intelligence (OSINT): What It Is and Why It Matters</a></h2>
+                    <p class="preview-meta"><time datetime="2023-11-15">Coming November 15, 2023</time> | <span class="read-time">15 min read</span></p>
+                    <p class="preview-excerpt">Explore the world of OSINT. This guide covers the fundamentals, key applications in cybersecurity and beyond, and how to get started with ethical information gathering.</p>
+                    <div class="preview-tags">
+                        <span class="tag">OSINT</span>
+                        <span class="tag">Cybersecurity</span>
+                        <span class="tag">Research</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Blog Post 4: The Teaser for the Advanced Evilginx Post -->
+            <article class="blog-preview-card" data-category="red-teaming">
+                <div class="card-content">
+                    <h2><a href="#">[Coming Soon] Evilginx Advanced: Configurations for Long-Lasting Campaigns</a></h2>
+                    <p class="preview-meta"><time datetime="2023-11-25">Coming November 25, 2023</time></p>
+                    <p class="preview-excerpt">So you understand how Evilginx works. Now let's make it stealthy. This advanced guide covers domain fronting, setting up redirectors, and customizing Lua scripts to evade detection and run persistent campaigns.</p>
+                    <div class="preview-tags">
+                        <span class="tag">Evilginx</span>
+                        <span class="tag">Advanced</span>
+                        <span class="tag">Tradecraft</span>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <script>
+        // Simple Filtering Functionality for the Blog Categories
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const blogCards = document.querySelectorAll('.blog-preview-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+
+                    const filterValue = button.getAttribute('data-filter');
+
+                    blogCards.forEach(card => {
+                        if (filterValue === 'all') {
+                            card.style.display = 'block';
+                        } else {
+                            // Check if the card's category attribute contains the filter value
+                            if (card.getAttribute('data-category').includes(filterValue)) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

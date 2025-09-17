@@ -589,3 +589,146 @@ body {
 main {
     flex: 1 0 auto;
 }
+/* ==================== */
+/* MOBILE RESPONSIVENESS */
+/* ==================== */
+
+@media (max-width: 768px) {
+  /* General fixes for mobile viewport */
+  html, body {
+    width: 100%;
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+  }
+  
+  .container, .nav-container, .blog-container {
+    width: 95%;
+    padding: 0 0.5rem;
+  }
+
+  /* Navigation fixes */
+  .nav-menu {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-logo {
+    font-size: 1.3rem;
+  }
+
+  /* Hero section fixes */
+  .hero h1 {
+    font-size: 2.2rem;
+    line-height: 1.2;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+  }
+
+  /* Project grid fixes */
+  .project-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    padding: 1.2rem;
+  }
+
+  /* Section padding adjustments */
+  section {
+    padding: 3rem 0;
+  }
+
+  /* Heading fixes for mobile */
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h2::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Button sizing */
+  .btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Blog hub specific fixes */
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-filters {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .filter-btn {
+    width: 80%;
+    margin: 0.3rem 0;
+  }
+
+  /* Blog post specific fixes */
+  .blog-post {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .blog-post pre {
+    overflow-x: auto;
+    font-size: 0.8rem;
+    padding: 0.8rem;
+  }
+
+  /* Code blocks */
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Typing animation adjustment */
+  #typing-text {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small devices */
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.7rem;
+  }
+  
+  .nav-menu {
+    gap: 0.7rem;
+  }
+  
+  .nav-link {
+    font-size: 0.9rem;
+  }
+  
+  /* Ensure images don't overflow */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
